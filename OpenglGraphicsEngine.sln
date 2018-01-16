@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenglGraphicsEngine", "OpenglGraphicsEngine\OpenglGraphicsEngine.csproj", "{3EF4740F-AC4C-49CE-883C-9CFF22A3908F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EF4740F-AC4C-49CE-883C-9CFF22A3908F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF4740F-AC4C-49CE-883C-9CFF22A3908F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF4740F-AC4C-49CE-883C-9CFF22A3908F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF4740F-AC4C-49CE-883C-9CFF22A3908F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACEDEE4B-F135-401F-9AA7-12457CE2BFE8}
+	EndGlobalSection
+EndGlobal
