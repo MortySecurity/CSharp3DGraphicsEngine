@@ -14,8 +14,7 @@ namespace OpenglGraphicsEngine
 
         
 
-        static void Main(string[] args)
-        {
+        static void Main(string[] args){
 
             displayWindow();
         }
@@ -25,8 +24,7 @@ namespace OpenglGraphicsEngine
            * creating the window for the 3d opengl graphics engine
            * 
            * */
-        public static void displayWindow()
-        {
+        public static void displayWindow(){
 
             Glut.glutInit();
 
@@ -54,8 +52,7 @@ namespace OpenglGraphicsEngine
             Glut.glutMainLoop();
         }
 
-        public static void SquareDrawing()
-        {
+        public static void SquareDrawing(){
             program = new ShaderProgram(VertexShader, FragmentShader);
 
             program.Use();
@@ -69,13 +66,15 @@ namespace OpenglGraphicsEngine
             
         }
 
-        private static void OnDisplay()
-        {
+        private static void closeProgram(){
 
         }
 
-        private static void OnRenderFrame()
-        {
+        private static void OnDisplay(){
+
+        }
+
+        private static void OnRenderFrame(){
 
             Gl.Viewport(0, 0, width, height);
             Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
