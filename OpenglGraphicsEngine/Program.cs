@@ -9,7 +9,10 @@ namespace OpenglGraphicsEngine
         private static int width = 1280, height = 720;
         private static ShaderProgram program;
         private static VBO<Vector3> square;
+        private static VBO<Vector3> squareColor;
         private static VBO<int> SquareElements;
+
+        
 
         static void Main(string[] args)
         {
@@ -41,6 +44,9 @@ namespace OpenglGraphicsEngine
             Glut.glutIdleFunc(OnRenderFrame);
             Glut.glutDisplayFunc(OnDisplay);
 
+            Gl.Enable(EnableCap.DepthTest);
+
+            
 
             SquareDrawing();
             
@@ -57,8 +63,10 @@ namespace OpenglGraphicsEngine
             program["view_matrix"].SetValue(Matrix4.LookAt(new Vector3(0, 0, 10), Vector3.Zero, new Vector3(0, 1, 0)));
 
             square = new VBO<Vector3>(new Vector3[] { new Vector3(-1, 1, 0), new Vector3(1, 1, 0), new Vector3(1, -1, 0), new Vector3(-1, -1, 0) });
-
+            squareColor = new VBO<Vector3>(new Vector3[] { new Vector3(0.5f, 1.5f, 1), new Vector3(0.5f, 0.5f, 1), new Vector3(1.5f, 0.5f, 1), new Vector3(0.5f, 0.5f, 0.8f) });
             SquareElements = new VBO<int>(new int[] { 0, 1, 2, 3 }, BufferTarget.ElementArrayBuffer);
+
+            
         }
 
         private static void OnDisplay()
@@ -72,11 +80,12 @@ namespace OpenglGraphicsEngine
             Gl.Viewport(0, 0, width, height);
             Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            program.Use();
+            Gl.UseProgram(program);
 
             //draw square
             program["model_matrix"].SetValue(Matrix4.CreateTranslation(new Vector3(0, 0, 0)));
             Gl.BindBufferToShaderAttribute(square, program, "vertexPosition");
+            Gl.BindBufferToShaderAttribute(squareColor, program, "vertexColor");
             Gl.BindBuffer(SquareElements);
 
             Gl.DrawElements(BeginMode.Quads, SquareElements.Count, DrawElementsType.UnsignedInt, IntPtr.Zero);
@@ -85,23 +94,27 @@ namespace OpenglGraphicsEngine
         }
 
         public static string VertexShader = @"
-
+#version 130
 in vec3 vertexPosition;
+in vec3 vertexColor;
+out vec3 color;
 uniform mat4 projection_matrix;
 uniform mat4 view_matrix;
 uniform mat4 model_matrix;
 void main(void)
 {
+    color = vertexColor;
     gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertexPosition, 1);
 }
 ";
 
         public static string FragmentShader = @"
 #version 130
+in vec3 color;
 out vec4 fragment;
 void main(void)
 {
-    fragment = vec4(1, 1, 1, 1);
+    fragment = vec4(color, 1);
 }
 ";
     }
