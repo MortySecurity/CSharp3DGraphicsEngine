@@ -41,7 +41,7 @@ namespace OpenglGraphicsEngine
 
             Glut.glutIdleFunc(OnRenderFrame);
             Glut.glutDisplayFunc(OnDisplay);
-
+            Glut.glutCloseFunc(closeProgram);
             Gl.Enable(EnableCap.DepthTest);
 
             
@@ -68,6 +68,13 @@ namespace OpenglGraphicsEngine
 
         private static void closeProgram(){
 
+            // Dump all the data on close
+            square.Dispose();
+            program.DisposeChildren = true;
+            
+            SquareElements.Dispose();
+            squareColor.Dispose();
+            program.Dispose();
         }
 
         private static void OnDisplay(){
@@ -92,6 +99,7 @@ namespace OpenglGraphicsEngine
             Glut.glutSwapBuffers();
         }
 
+        // Vertex Shader code
         public static string VertexShader = @"
 #version 130
 in vec3 vertexPosition;
@@ -106,7 +114,7 @@ void main(void)
     gl_Position = projection_matrix * view_matrix * model_matrix * vec4(vertexPosition, 1);
 }
 ";
-
+        // Fragment Shader code
         public static string FragmentShader = @"
 #version 130
 in vec3 color;
